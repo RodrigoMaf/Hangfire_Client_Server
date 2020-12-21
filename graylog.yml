@@ -1,0 +1,155 @@
+### LEIA AS CONFIGURAÇÕES ABAIXO E CONFIGURE DE FORMA QUE ACHAR ADEQUADO A APLICAÇÃO###
+version: '3.5'
+
+services:
+  graylog:
+    depends_on:
+      - mongodb
+      - elasticsearch
+    container_name: graylog
+    image: graylog2/graylog:3.0
+    volumes:
+      - ./graylog_journal:/usr/share/graylog/data/journal
+#    networks:
+#      - graylog_default
+    environment:
+
+###    CONFIGURAÇÕES DO SERVIÇO GRAYLOG PODEM SER ENCONTRADAS NO LINK ABAIXO COM AS RESPECTIVAS DESCRIÇÕES                  ###
+###    http://docs.graylog.org/en/latest/pages/configuration/server.conf.html                                               ###
+###    OBS.: ATENTAR QUE TODAS AS VARIAVEIS TEM QUE HAVER O PREFIXO  "GRAYLOG_"                                             ###
+
+      
+###   DEFININDO A URL DE INTERFACE GRAFICA DO GRAYLOG - DEFAULT=n/a OBS: DEFINIR A URL COM O PROTOCOLO(HTTP) E PORTA(9000)  ###
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:9000/
+
+###   HABLITANDO CORS NO SERVIÇO - DEFAULT=true                                                                             ###      
+#      - GRAYLOG_HTTP_ENABLE_CORS=true
+      
+###   HABILITANDO CORS NO SERVIÇO - DEFAULT=true                                                                            ###       
+#      - GRAYLOG_HTTP_ENABLE_GZIP=true
+      
+###   HABILITANDO O TAMANHO MAXIMO DE CABEÇALHO DA REQUISIÇÃO HTTP - DEFAULT=8192                                           ###     
+#      - GRAYLOG_HTTP_MAX_HEADER_SIZE=8192
+
+###   HABILITANDO A QTD DE THREADS NO POOL HTTP - DEFAULT=16                                                                ###      
+#      - GRAYLOG_HTTP_THREAD_POOL_SIZE=16
+
+###   DEFININDO O EMAIL DO GRAYLOG -                                                                                        ###      
+      - GRAYLOG_ROOT_EMAIL=rigo.maf@gmail.com
+
+###   DEFININDO O TIMEZONE DO SERVIÇO - DEFAULT=UTC                                                                         ###      
+      - GRAYLOG_ROOT_TIMEZONE=America/Sao_Paulo
+
+###   DEFININDO O USUÁRIO ROOT DA INTERFACE GRAFICA DO GRAYLOG                                                              ###      
+#      - GRAYLOG_ROOT_USERNAME=admin
+
+###   DEFININDO A SENHA DO ROOT DA INTERFACE GRAFICA DO GRAYLOG - A SENHA DEVE SER DEFINIDA POR GRAYLOG_ROOT_PASSWORD_SHA2  ###      
+#      - GRAYLOG_PASSWORD_SECRET=
+
+###   SHA256 PARA LOGIN DO ROOT - PARA OBTER O HASH, NO BASH LINUX E EXECUTE O COMANDO ABAIXO E INDIQUE A SENHA             ###
+###   echo -n "Enter Password: " && head -1 </dev/stdin | tr -d '\n' | sha256sum | cut -d" " -f1                            ###
+###   OU VEJA QUALQUER SITE ONLINE QUE GERE CODIFIQUE UM VALOR EM SHA256                                                    ###      
+###      - GRAYLOG_ROOT_PASSWORD_SHA2=
+
+###   HABILITANDO CAMADA DE SEGURANÇA NO SERVIÇO - DEFAULT=false                                                            ###
+#      - GRAYLOG_HTTP_ENABLE_TLS=false
+
+###   DEFININDO O CERTIFICADO DO GRAYLOG                                                                                    ###
+#      - GRAYLOG_HTTP_TLS_CERT_FILE= 
+
+###   DEFININDO A CHAVE DO CERTIFICADO DO GRAYLOG                                                                           ###
+#      - GRAYLOG_HTTP_TLS_KEY_FILE= 
+
+###   DEFININDO A SENHA DO CERTIFICADO DO GRAYLOG                                                                           ###
+#      - GRAYLOG_HTTP_TLS_KEY_PASSWORD=
+
+
+###   HABILITANDO O ENVIO DE EMAIL                                                                                          ###
+      - GRAYLOG_TRANSPORT_EMAIL_ENABLED=true
+      
+###   SERVIDOR DE EMAIL SMPT                                                                                                ###
+      - GRAYLOG_TRANSPORT_EMAIL_HOSTNAME=smtp.gmail.com
+
+###   PORTA DE SERVIÇO DE EMAIL (DEFAULT)                                                                                   ###
+#      - GRAYLOG_TRANSPORT_EMAIL_PORT=587
+      
+###   HABILITANDO O USO DE AUTENTICAÇÃO CASO NECESSÁRIO AO SERVIDOR (DEFALT=true)                                           ###      
+#     - GRAYLOG_TRANSPORT_EMAIL_USE_AUTH=true
+      
+###   HABILITANDO HABILITANDO O USO DE TLS  (DEFALT=true)                                                                   ###
+#      - GRAYLOG_TRANSPORT_EMAIL_USE_TLS=true
+
+###   HABILITANDO HABILITANDO O USO DE SSL NO ENVIO DE EMAIL  (DEFALT=true)                                                 ###      
+#      - GRAYLOG_TRANSPORT_EMAIL_USE_SSL=false
+
+###   DEFININDO O USUARIO DA CONTA QUE SERÁ USADO PARA O ENVIO DE EMAIL                                                     ### 
+###   SUGESTAO: CRIAR UMA CONTA DE SERVIÇO ESPECIFICO PARA ESTA FUNCIONALIDADE                                              ###      
+###      - GRAYLOG_TRANSPORT_EMAIL_AUTH_USERNAME=
+
+###   DEFINIR A SENHA DA CONTA DE EMAIL                                                                                     ###      
+###   PARA CONTA GMAIL, PESQUISAR COMO GERAR SENHA DE APP - https://support.google.com/accounts/answer/185833?hl=pt-BR      ###
+###      - GRAYLOG_TRANSPORT_EMAIL_AUTH_PASSWORD=
+
+###   CRIANDO UM PREFIXO DEFAULT DE ASSUNTO NAS CRIAÇÕES TEMPLATES DE EMAIL (DEFAULT:[graylog])                             ###
+###   OBS: NAO ALTERA OS TEMPLATES JA CRIADOS                                                                               ###      
+      - GRAYLOG_TRANSPORT_EMAIL_SUBJECT_PREFIX=[graylog-report]
+
+###   CRIANDO UM REMETENTE PADRÃO PARA O ENVIO DE EMAIL NAS CRIACOES DE TEMPLATES DE EMAIL( DEFAULT:graylog@example.com )   ###
+###   OBS: O REMETENTE NÃO NECESSITA SER EXATAMENTE O MESMO DA CONTA AUTENTICADA                                            ###      
+###      - GRAYLOG_TRANSPORT_EMAIL_FROM_EMAIL=
+      
+    ports:
+    # INTERFACE REST API
+      - "9000:9000" 
+    # Syslog HTTP/TCP
+      - "1514:1514"
+    # Syslog UDP
+      - "1514:1514/udp"
+    # GELF HTTP/TCP  
+      - "12201:12201"
+    # GELF UDP  
+      - "12201:12201/udp"      
+          
+  mongodb:
+    container_name: mongo
+    image: mongo:latest
+    volumes:
+      - ./mongo_data:/data/db
+#    networks:
+#      - graylog_default
+    ports:
+###   PORTA DEFAULT DO MONGODB - NAO PRECISA SER EXPOSTA                                                                    ###    
+      - "27017:27017"     
+    
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.6.2
+#    networks:
+#      - graylog_default
+    volumes:
+      - ./es_data:/usr/share/elasticsearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+#    mem_limit: 1g
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=localhost
+      - network.host=0.0.0.0
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+      
+### CRIACAO DE REDE INTERNA PARA OS SERVIÇOS ###
+#networks:
+#  graylog_default:
+#    driver: bridge
+
+volumes:
+  mongo_data:
+    driver: local
+  es_data:
+    driver: local
+  graylog_journal:
+    driver: local 

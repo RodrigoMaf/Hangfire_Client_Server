@@ -1,0 +1,21 @@
+{
+  "Swagger": {
+    "Infos": [
+      {
+        "Title": "POCServiceWorker",
+        "Description": "POCServiceWorker - 1.0.0",
+        "Version": "v1",
+        "TermsOfService": null,
+        "Contact": {
+          "Name": "Rodrigo Fonseca",
+          "Email": "rigo.maf@gmail.com",
+          "Url": "http://www.POCServiceWorker.com.br"
+        },
+        "License": {
+          "Name": "MIT",
+          "Url": ""
+        }
+      }
+    ]
+  }
+}

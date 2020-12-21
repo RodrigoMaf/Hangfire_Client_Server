@@ -1,0 +1,42 @@
+# docker-compose.yml
+version: '3.5'
+services:
+  pocserviceapi:
+    networks:
+      - pocnetwork
+    depends_on:
+        - pocserviceworker
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_Hangfire__ConnectionStrings__hangfiredb=server=mysql_hangfire;port=3306;database=hangfire;user=root;password=teste;Allow User Variables=True
+      
+  pocserviceworker:
+    networks:
+      - pocnetwork
+    depends_on:
+        - mysql
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_Hangfire__ConnectionStrings__hangfiredb=server=mysql_hangfire;port=3306;database=hangfire;user=root;password=teste;Allow User Variables=True
+
+  mysql:
+    networks:
+      - pocnetwork
+#    depends_on:
+#        - graylog
+#
+#  graylog:
+#    networks:
+#      - pocnetwork
+#
+#  mongodb:
+#    networks:
+#      - pocnetwork
+#
+#  elasticsearch:
+#    networks:
+#      - pocnetwork
+
+networks:
+  pocnetwork:
+    driver: bridge

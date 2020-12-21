@@ -1,0 +1,37 @@
+{
+  "Swagger": {
+    "Infos": [
+      {
+        "Title": "POC.ServiceAPI",
+        "Description": "POC.ServiceAPI - 1.0.0",
+        "Version": "v1",
+        "TermsOfService": null,
+        "Contact": {
+          "Name": "Rodrigo Fonseca",
+          "Email": "rigo.maf@gmail.com",
+          "Url": ""
+        },
+        "License": {
+          "Name": "MIT",
+          "Url": "https://bitbucket.org/RMAF/Homeoffer/src/master/LICENSE"
+        }
+      }
+      ////,
+      ////{
+      ////  "Title": "POC.ServiceAPI",
+      ////  "Description": "POC.ServiceAPI - 2.0.0",
+      ////  "Version": "v2",
+      ////  "TermsOfService": null,
+      ////  "Contact": {
+      ////    "Name": "Rodrigo Fonseca",
+      ////    "Email": "rigo.maf@gmail.com",
+      ////    "Url": "http://www.pocapi.com.br"
+      ////  },
+      ////  "License": {
+      ////    "Name": "MIT",
+      ////    "Url": ""
+      ////  }
+      ////}
+    ]
+  }
+}

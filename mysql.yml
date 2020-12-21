@@ -1,0 +1,15 @@
+# docker-compose.yml
+version: '3.5'
+services:
+  mysql:
+    image: mysql
+    container_name: mysql_hangfire
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: teste
+    ports:
+      - "13306:3306"  
+    volumes:
+      - ./script:/docker-entrypoint-initdb.d
+    #  - ./mysql_data:/var/lib/mysql

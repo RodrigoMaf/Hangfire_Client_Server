@@ -1,0 +1,11 @@
+{
+  "Security": {    
+    "Cors": {
+      "mainCorsPolice": {
+        "origins": [ "" ],
+        "headers": null,
+        "methods": null
+      }
+    }
+  }
+}

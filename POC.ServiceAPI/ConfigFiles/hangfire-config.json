@@ -1,0 +1,33 @@
+{
+  "Hangfire": {
+    "ConnectionStrings": {
+      //"hangfiredb": "server=mysql_hangfire;port=3306;database=hangfire;user=root;password=teste;Allow User Variables=True"
+      "hangfiredb": "server=localhost;port=13306;database=hangfire;user=root;password=teste;Allow User Variables=True"      
+    },
+    "MySqlStorageOptions": {
+      "TransactionIsolationLevel": "ReadCommitted",
+      "QueuePollInterval": "00:00:15",
+      "JobExpirationCheckInterval": "01:00:00",
+      "CountersAggregateInterval": "00:05:00",
+      "PrepareSchemaIfNecessary": true,
+      "DashboardJobListLimit": 50000,
+      "TransactionTimeout": "00:01:00",
+      "TablesPrefix": "Hangfire"
+    },
+    "DashboardOptions": {
+      "BasicAuthAuthorizationFilterOptions": {
+        "RequireSsl": false,
+        "SslRedirect": false,
+        "LoginCaseSensitive": true,
+        "Users": [
+          {
+            "Login": "admin",
+            "Password": "Lm+bDViFtgEPkWd4dEVhf1U6c18="
+            // A senha pode ser montada por cleartext ou hash, seguir conforme https://github.com/HangfireIO/Hangfire.Dashboard.Authorization
+          }
+        ]
+      }
+    }
+
+  }
+}

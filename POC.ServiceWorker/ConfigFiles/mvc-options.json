@@ -1,0 +1,20 @@
+{
+  "MvcOptions": {
+    "ReturnHttpNotAcceptable": true,
+    //"SuppressAsyncSuffixInActionNames": true,
+    //"SuppressOutputFormatterBuffering": false,
+    //"SuppressInputFormatterBuffering": false,
+    //"SuppressImplicitRequiredAttributeForNonNullableReferenceTypes": false,
+    //"RespectBrowserAcceptHeader": false,
+    //"AllowEmptyInputInBodyModelBinding": false,
+    //"EnableEndpointRouting": true,
+    //"ValidateComplexTypesIfChildValidationFails": false,
+    //"RequireHttpsPermanent": false,
+    //"SslPort": 0,
+    //"MaxValidationDepth": 32,
+    //"MaxModelValidationErrors": 200,
+    //"MaxModelBindingRecursionDepth": 32,
+    //"MaxModelBindingCollectionSize": 1024,
+    //"MaxIAsyncEnumerableBufferLimit": 8192
+  }
+}

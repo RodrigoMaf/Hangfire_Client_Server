@@ -1,0 +1,60 @@
+{
+  //"service1": {
+  //  "Region": "us-west-1",
+  //  "CloudWatchSinkOptions": {
+  //  }
+  //},
+  "Serilog": {
+    "Using": [ ],
+    "MinimumLevel": {
+      "Default": "Debug",
+      "Override": {
+        "Microsoft": "Debug",
+        "System": "Error"
+      }
+    },
+    "Enrich": [ "FromLogContext" ],
+    "Filter": [
+      {
+        "Name": "ByExcluding",
+        "Args": {
+          "expression": "StartsWith(SourceContext,'Microsoft.AspNetCore.Server.Kestrel') or StartsWith(RequestPath,'/phonogram-service/hc')"
+        }
+      },
+      //{
+      //  "Name": "ByIncludingOnly",
+      //  "Args": {
+      //    "expression": "StartsWith(SourceContext,'Microsoft.EntityFrameworkCore.Database.Command') and StartsWith(commandType, 'Text')"
+      //  }
+      //}
+    ],
+    "WriteTo": [
+      {
+        "Name": "RollingFile",
+        "Args": {
+          //"formatter": "Serilog.Formatting.Compact.CompactJsonFormatter, Serilog.Formatting.Compact",
+          "restrictedToMinimumLevel": "Debug",
+          "LoggingLevelSwitch": "Debug",
+          "pathFormat": "Logs/POCServiceWorker-{Date}.txt",
+          //"retainedFileCountLimit": 2000,
+          //"fileSizeLimitBytes": 1073741824,
+          "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}->{Exception}"
+          //"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] ({ThreadId}) ({MachineName}) ({Version}) ({Is64BitProcess}) ({Is64BitOperatingSystem}) ({OSVersion}) ({ProcessorCount}) ({UserDomainName}) ({StackTrace})  {Message:lj}{NewLine}{Exception}"
+        }
+      }
+      //{
+      //  "Name": "Console"
+      //},
+      //{
+      //  "Name": "Graylog",
+      //  "Args": {
+      //    "hostnameOrAddress": "localhost",
+      //    "port": 12201,
+      //    "MinimumLogEventLevel": "Verbose",
+      //    "transportType": "Udp",
+      //    "facility": "POCServiceWorker"
+      //  }
+      //}
+    ]
+  }
+}
