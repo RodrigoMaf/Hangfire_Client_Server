@@ -43,6 +43,10 @@ namespace POC.Infra.Registers
         /// <param name="configuration">Configurações do sistema</param>
         public static IApplicationBuilder UseHangfireServer(this IApplicationBuilder app, IConfiguration configuration)
         {
+            var backgroundServerOptions = new BackgroundJobServerOptions();
+
+            configuration.Bind("Hangfire:BackgroundJobServerOptions", backgroundServerOptions);
+
             var users = configuration
                         .GetSection("Hangfire:DashboardOptions:BasicAuthAuthorizationFilterOptions:Users")
                         .GetChildren()
@@ -53,8 +57,10 @@ namespace POC.Infra.Registers
             var basicAuth = new BasicAuthAuthorizationFilterOptions() { Users = users };
             configuration.GetSection("Hangfire:DashboardOptions:BasicAuthAuthorizationFilterOptions").Bind(basicAuth);
 
+
+
             return app
-                .UseHangfireServer()
+                .UseHangfireServer(backgroundServerOptions)
                 .UseHangfireDashboard(
                 "/hangfire",
                 new DashboardOptions

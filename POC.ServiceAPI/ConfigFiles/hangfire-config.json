@@ -2,7 +2,23 @@
   "Hangfire": {
     "ConnectionStrings": {
       //"hangfiredb": "server=mysql_hangfire;port=3306;database=hangfire;user=root;password=teste;Allow User Variables=True"
-      "hangfiredb": "server=localhost;port=13306;database=hangfire;user=root;password=teste;Allow User Variables=True"      
+      "hangfiredb": "server=localhost;port=13306;database=hangfire;user=root;password=teste;Allow User Variables=True"
+    },
+    "BackgroundJobServerOptions": {
+      //"ServerName": "Hangout.Service",
+      //"WorkerCount":"2",
+      //"Queues":["Queue1","Queue2","Queue3"],
+      //"StopTimeout":"0.00:00:00",
+      //"ShutdownTimeout":"0.00:00:00",
+      //"SchedulePollingInterval":"0.00:00:00",
+      //"HeartbeatInterval": "0.00:00:00",
+      //"ServerCheckInterval":"0.00:00:00",
+      //"ServerTimeout":"0.00:00:00",
+      //"CancellationCheckInterval":"0.00:00:00",
+      //"ServerWatchdogOptions": {
+      //  "ServerTimeout": "0.00:00:00",
+      //  "CheckInterval": "0.00:00:00"
+      //},
     },
     "MySqlStorageOptions": {
       "TransactionIsolationLevel": "ReadCommitted",
