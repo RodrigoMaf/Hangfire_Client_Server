@@ -1,4 +1,5 @@
-﻿using Hangfire;
+﻿using System;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using POC.Domain.Application;
 using POC.Domain.Contracts;
@@ -16,6 +17,8 @@ namespace POC.ServiceAPI.Controllers
 
         /// <summary>Background hangout client</summary>
         private IBackgroundJobClient BackgroundJobClient { get; }
+
+        private IRecurringJobManager RecurringJobClient { get; }
 
         #endregion
 
@@ -36,8 +39,24 @@ namespace POC.ServiceAPI.Controllers
         [HttpPut]
         public IActionResult Put([FromBody] DataContractSample value)
         {
-            BackgroundJobClient
-                .Enqueue<IFeatureApplication>(c => c.Execute(value));
+            string bgJobName = BackgroundJobClient
+                                        .Enqueue<IFeatureApplication>(c => c.Execute(value));
+            //.Schedule<IFeatureApplication>(c => c.Execute(value), TimeSpan.FromSeconds(10));
+
+            //string nextBgJobName = BackgroundJobClient
+            //                            .ContinueJobWith<IFeatureApplication>(bgJobName, c => c.Execute(value), JobContinuationOptions.OnlyOnSucceededState);
+
+
+            //RecurringJobClient
+            //    .AddOrUpdate<IFeatureApplication>("Recurring",
+            //        (c) => c.Execute(value),
+            //        Cron.Minutely(),
+            //        TimeZoneInfo.Local,
+            //        "default"
+            //    );
+
+            //RecurringJob
+            //    .Trigger("Queue1");
 
             return Accepted();
         }

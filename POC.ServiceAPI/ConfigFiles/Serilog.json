@@ -38,7 +38,7 @@
           "pathFormat": "Logs/POC.ServiceAPI-{Date}.txt",
           //"retainedFileCountLimit": 2000,
           //"fileSizeLimitBytes": 1073741824,
-          "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}->{Exception}"
+          //"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}->{Exception}"
           //"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] ({ThreadId}) ({MachineName}) ({Version}) ({Is64BitProcess}) ({Is64BitOperatingSystem}) ({OSVersion}) ({ProcessorCount}) ({UserDomainName}) ({StackTrace})  {Message:lj}{NewLine}{Exception}"
         }
       }

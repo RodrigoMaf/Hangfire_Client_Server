@@ -339,3 +339,4 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /POC.ServiceAPI/Logs
+/POC.ServiceWorker/Logs

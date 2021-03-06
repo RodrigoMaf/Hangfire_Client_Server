@@ -2,6 +2,7 @@
 using System.Linq;
 using Hangfire;
 using Hangfire.Dashboard.BasicAuthorization;
+using Hangfire.Dashboard.Dark;
 using Hangfire.MySql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -25,14 +26,16 @@ namespace POC.Infra.Registers
             var storage = new MySqlStorage(
                     configuration.GetValue<string>("Hangfire:ConnectionStrings:hangfiredb"),
                     mySqlStorageOptions
-                );            
-
+                );  
+            
+            
             services.AddHangfire(
             (provider, config) => 
             {
                 config
                     .UseStorage(storage)
                     .UseSerilogLogProvider()
+                    .UseDarkDashboard()
                     .UseFilter(new HangFireLogStepsAttribute(provider.GetRequiredService<ILogger<HangFireLogStepsAttribute>>()));
             });
             return services;
